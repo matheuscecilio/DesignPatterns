@@ -1,6 +1,8 @@
 ﻿using DesignPatterns.AbstractFactory;
 using DesignPatterns.AbstractFactory.BancoDoBrasil;
 using DesignPatterns.AbstractFactory.Caixa;
+using DesignPatterns.Adapter;
+using DesignPatterns.Adapter.Terceiros;
 using DesignPatterns.FactoryMethod.BancoDoBrasil;
 using DesignPatterns.FactoryMethod.Caixa;
 using DesignPatterns.State;
@@ -19,7 +21,45 @@ namespace DesignPatterns
 
             //TemplateMethod();
 
-            State();
+            //State();
+
+            Adapter();
+        }
+
+        private static void Adapter()
+        {
+            var pagFacilAdapter = new PagFacilAdapter();
+            var cobranca = new Cobranca(pagFacilAdapter);
+            cobranca.AdicionarValor(100);
+            cobranca.AdicionarParcelas(5);
+            cobranca.AdicionarNumeroCartao("1234 5678 9012 3456");
+            cobranca.AdicionarCVV("123");
+
+            if (cobranca.RealizarPagamento())
+            {
+                Console.WriteLine("Pagamento realizado com sucesso");
+            }
+            else
+            {
+                Console.WriteLine("Erro o realizar pagamento");
+            }
+
+            var topPagamentos = new TopPagamentos();
+            var topPagamentosAdapter = new TopPagamentosAdapter(topPagamentos);
+            cobranca.AdicionarGateway(topPagamentosAdapter);
+            cobranca.AdicionarValor(100);
+            cobranca.AdicionarParcelas(5);
+            cobranca.AdicionarNumeroCartao("1234 5678 9012 3456");
+            cobranca.AdicionarCVV("123");
+
+            if (cobranca.RealizarPagamento())
+            {
+                Console.WriteLine("Pagamento realizado com sucesso");
+            }
+            else
+            {
+                Console.WriteLine("Erro o realizar pagamento");
+            }
         }
 
         private static void State()
