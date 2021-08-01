@@ -3,6 +3,7 @@ using DesignPatterns.AbstractFactory.BancoDoBrasil;
 using DesignPatterns.AbstractFactory.Caixa;
 using DesignPatterns.FactoryMethod.BancoDoBrasil;
 using DesignPatterns.FactoryMethod.Caixa;
+using DesignPatterns.State;
 using DesignPatterns.TemplateMethod;
 using System;
 
@@ -16,7 +17,17 @@ namespace DesignPatterns
 
             //FactoryMethod();
 
-            TemplateMethod();
+            //TemplateMethod();
+
+            State();
+        }
+
+        private static void State()
+        {
+            var pedido = new Pedido();
+            pedido.RealizarPagamento();
+            pedido.DespacharPedido();
+            pedido.CancelarPedido();
         }
 
         private static void TemplateMethod()
