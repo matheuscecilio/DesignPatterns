@@ -3,6 +3,7 @@ using DesignPatterns.AbstractFactory.BancoDoBrasil;
 using DesignPatterns.AbstractFactory.Caixa;
 using DesignPatterns.Adapter;
 using DesignPatterns.Adapter.Terceiros;
+using DesignPatterns.Facade;
 using DesignPatterns.FactoryMethod.BancoDoBrasil;
 using DesignPatterns.FactoryMethod.Caixa;
 using DesignPatterns.State;
@@ -23,7 +24,25 @@ namespace DesignPatterns
 
             //State();
 
-            Adapter();
+            //Adapter();
+
+            Facade();
+        }
+
+        private static void Facade()
+        {
+            var consumidor = new Consumidor(
+                "José",
+                "123.456.789-00",
+                "jose@jose.com.br"
+            );
+
+            var vendaFacade = new VendaFacade(consumidor);
+            vendaFacade.AdicionarProduto(new Produto("P1", "P1", 15));
+            vendaFacade.AdicionarProduto(new Produto("P2", "P2", 25));
+            vendaFacade.AdicionarProduto(new Produto("P3", "P3", 35));
+
+            vendaFacade.PedidoCredito();
         }
 
         private static void Adapter()
@@ -64,7 +83,7 @@ namespace DesignPatterns
 
         private static void State()
         {
-            var pedido = new Pedido();
+            var pedido = new State.Pedido();
             pedido.RealizarPagamento();
             pedido.DespacharPedido();
             pedido.CancelarPedido();
@@ -76,7 +95,7 @@ namespace DesignPatterns
             var gateway = new Gateway();
 
             Console.WriteLine("Crédito");
-            var pagamentoCredito = new PagamentoCredito(valor, gateway);
+            var pagamentoCredito = new TemplateMethod.PagamentoCredito(valor, gateway);
             pagamentoCredito.RealizarCobranca();
 
             Console.WriteLine("Débito");
