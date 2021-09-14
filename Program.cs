@@ -3,6 +3,7 @@ using DesignPatterns.AbstractFactory.BancoDoBrasil;
 using DesignPatterns.AbstractFactory.Caixa;
 using DesignPatterns.Adapter;
 using DesignPatterns.Adapter.Terceiros;
+using DesignPatterns.Bridge;
 using DesignPatterns.Facade;
 using DesignPatterns.FactoryMethod.BancoDoBrasil;
 using DesignPatterns.FactoryMethod.Caixa;
@@ -26,7 +27,36 @@ namespace DesignPatterns
 
             //Adapter();
 
-            Facade();
+            //Facade();
+
+            Bridge();
+        }
+
+        private static void Bridge()
+        {
+            ICanalEnvio canal = new Email();
+
+            Mensagem mensagem = new MensagemAdmin(canal);
+            mensagem.Assunto = "Assunto 1";
+            mensagem.Descricao = "Desc 1";
+            mensagem.Enviar();
+
+            mensagem = new MensagemUsuario(canal);
+            mensagem.Assunto = "Assunto 2";
+            mensagem.Descricao = "Desc 2";
+            mensagem.Enviar();
+
+            canal = new SMS();
+
+            mensagem = new MensagemAdmin(canal);
+            mensagem.Assunto = "Assunto 3";
+            mensagem.Descricao = "Desc 3";
+            mensagem.Enviar();
+
+            mensagem = new MensagemUsuario(canal);
+            mensagem.Assunto = "Assunto 4";
+            mensagem.Descricao = "Desc 4";
+            mensagem.Enviar();
         }
 
         private static void Facade()
