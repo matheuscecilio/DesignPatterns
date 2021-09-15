@@ -4,10 +4,10 @@ using DesignPatterns.AbstractFactory.Caixa;
 using DesignPatterns.Adapter;
 using DesignPatterns.Adapter.Terceiros;
 using DesignPatterns.Bridge;
+using DesignPatterns.ChainOfResponsability;
 using DesignPatterns.Facade;
 using DesignPatterns.FactoryMethod.BancoDoBrasil;
 using DesignPatterns.FactoryMethod.Caixa;
-using DesignPatterns.State;
 using DesignPatterns.TemplateMethod;
 using System;
 
@@ -29,7 +29,21 @@ namespace DesignPatterns
 
             //Facade();
 
-            Bridge();
+            //Bridge();
+
+            ChainOfResponsability();
+        }
+
+        private static void ChainOfResponsability()
+        {
+            var pedido = new ChainOfResponsability.Pedido(109);
+
+            var pontos = CalculadorDePontos.CalcularPontosPedido(
+                pedido,
+                16
+            );
+
+            Console.WriteLine($"Pontos: {pontos}");
         }
 
         private static void Bridge()
