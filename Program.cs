@@ -5,6 +5,7 @@ using DesignPatterns.Adapter;
 using DesignPatterns.Adapter.Terceiros;
 using DesignPatterns.Bridge;
 using DesignPatterns.ChainOfResponsability;
+using DesignPatterns.Composite;
 using DesignPatterns.Facade;
 using DesignPatterns.FactoryMethod.BancoDoBrasil;
 using DesignPatterns.FactoryMethod.Caixa;
@@ -31,7 +32,41 @@ namespace DesignPatterns
 
             //Bridge();
 
-            ChainOfResponsability();
+            //ChainOfResponsability();
+
+            Composite();
+        }
+
+        private static void Composite()
+        {
+            var raiz = new Pasta("Raiz", "/");
+
+            var pasta1 = new Pasta("Pasta 1", "/pasta1");
+            var pasta2 = new Pasta("Pasta 2", "/pasta2");
+            var pasta2_1 = new Pasta("Pasta 2.1", "/pasta2-1");
+            var pasta3 = new Pasta("Pasta 3", "/pasta3");
+
+            var arq1 = new Arquivo("Arquivo 1", "/arquivo1");
+            var arq2 = new Arquivo("Arquivo 2", "/arquivo2");
+            var arq3 = new Arquivo("Arquivo 3", "/arquivo3");
+            var arq4 = new Arquivo("Arquivo 4", "/arquivo4");
+            var arq5 = new Arquivo("Arquivo 5", "/arquivo5");
+            var arq6 = new Arquivo("Arquivo 6", "/arquivo6");
+
+            raiz.Adicionar(pasta1);
+            raiz.Adicionar(pasta2);
+            raiz.Adicionar(pasta3);
+
+            pasta2.Adicionar(pasta2_1);
+            pasta1.Adicionar(arq1);
+            pasta1.Adicionar(arq2);
+            pasta2.Adicionar(arq3);
+            pasta2.Adicionar(arq4);
+            pasta2_1.Adicionar(arq5);
+            pasta3.Adicionar(arq6);
+
+            var gerenciador = new GerenciadorDeArquivos(raiz);
+            gerenciador.ExibirTodos();
         }
 
         private static void ChainOfResponsability()
